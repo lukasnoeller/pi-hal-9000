@@ -1,0 +1,9 @@
+# Secrets
+.env
+.env.*
+*.env
+
+# Generated audio and temp files
+*.wav
+tts/
+voice-recordings/
