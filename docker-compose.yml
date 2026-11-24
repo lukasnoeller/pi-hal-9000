@@ -1,0 +1,30 @@
+services:
+  wake-word:
+    build:
+      context: ./wake-word
+    restart: unless-stopped
+
+  satellite:
+    build:
+      context: ./wyoming-satellite
+    ports:
+      - "10700:10700"
+    devices:
+      - /dev/snd:/dev/snd
+    group_add:
+      - audio
+    command:
+      - --name
+      - Discovery One
+      - --mic-command
+      - arecord -D sysdefault -r 16000 -c 1 -f S16_LE -t raw
+      - --snd-command
+      - aplay -D sysdefault -r 22050 -c 1 -f S16_LE -t raw
+      - --wake-uri
+      - tcp://wake-word:10400
+      - --wake-word-name
+      - do_you_read_me_hal
+      - --debug
+    depends_on:
+      - wake-word
+    restart: unless-stopped
