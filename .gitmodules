@@ -1,0 +1,3 @@
+[submodule "wyoming-satellite"]
+	path = wyoming-satellite
+	url = git@github.com:lukasnoeller/wyoming-satellite.git
